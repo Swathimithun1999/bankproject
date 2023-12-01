@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body bgcolor="#CCCCFF">
+
+<h2>Registration</h2>
+<form action="detail" method="post">
+    {% csrf_token %}
+<table>
+  <tr>
+    <td><label for="name">Name:</label></td>
+    <td><input type="text" name="name" id="name" placeholder="your name" required=""></td>
+  </tr>
+  <tr>
+    <td><label for="dob">DOB:</label></td>
+    <td><input type="date" name="dob" id="dob" placeholder="DOB" required=""></td>
+  </tr>
+  <tr>
+    <td><label for="age">Age:</label></td>
+    <td><input type="number" name="age" id="number" placeholder="Age" required=""></td>
+  </tr>
+  <tr>
+    <td><label for="gender">Gender:</label></td>
+    <td>Male: <input type="radio" name="gender" value="male">
+      Female: <input type="radio" name="gender" value="female">
+      Transgender: <input type="radio" name="gender" value="Transgender" required=""></td>
+  </tr>
+  <tr>
+    <td><label for="phoneNumber">Phone Number:</label></td>
+    <td><input type="number" name="phoneNumber" id="phoneNumber"></td>
+  </tr>
+  <tr>
+    <td><label for="email">Email:</label></td>
+    <td><input type="text" name="email" id="email" placeholder="your email"></td>
+  </tr>
+<!--  <tr>-->
+<!--    <td><label for="password">Password:</label></td>-->
+<!--    <td><input type="password" name="password" id="password"></td>-->
+<!--  </tr>-->
+
+<!--  <tr>-->
+<!--    <td><label for="password">Cpassword:</label></td>-->
+<!--    <td><input type="password" name="password1" id="password1"></td>-->
+<!--  </tr>-->
+
+  <tr>
+    <td><label for="address">Address:</label></td>
+    <td><textarea name="address" id="address" placeholder="Address"></textarea></td>
+  </tr>
+
+
+  <tr>
+    <td><label for="district">District</label></td>
+    <td>
+      <select onchange="updateSecondDropdown()"  name="district" id="district" class="district-dropdown">
+        <option value="">--Select District--</option>
+        <option value="Thrissur">Thrissur</option>
+        <option value="Ernamkulam">Ernamkulam</option>
+        <option value="Palakkad">Palakkad</option>
+        <option value="Kottayam">Kottayam</option>
+        <option value="Trivandrum">Trivandrum</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td> <label for="branch">Branch:</label></td>
+    <td>
+      <select id="branch" name="branch" class="branch-dropdown" required="">
+        <option value="">--Select Branch--</option>
+      </select></td>
+  </tr>
+  <tr>
+    <td><label for="Account">Account Type</label></td>
+    <td>
+      <select id="account" name="account" required="">
+        <option value="">Choose</option>
+        <option value="Savings">Savings</option>
+        <option value="Current">Current</option>
+      </select></td>
+  </tr>
+  <tr>
+    <td><label for="material">Materials Required :</label></td>
+    <td>
+      <input type="checkbox" id="debit" name="materials[]" value="Debit Card">
+      <label for="debit">Debit Card</label>
+      <input type="checkbox" id="credit" name="materials[]" value="Credit Card">
+      <label for="credit">Credit Card</label>
+      <input type="checkbox" id="cheque" name="materials[]" value="Chequebook">
+      <label for="debit">Cheque Book</label></td>
+  </tr>
+  <tr div class="button">
+    <td colspan="2"><input type="submit" class="submit" value="Submit"  onclick="return formValidation()" /></td>
+  <td><button><a href=" http://127.0.0.1:8000/" class="btn btn-light">Logout</a></button></td>
+  </tr>
+
+</table>
+</form>
+</body>
+
+<script>
+function updateSecondDropdown() {
+    // Get the selected value from the first dropdown
+    var selectedValue = document.getElementById("district").value;
+
+    // Get the second dropdown
+    var secondDropdown = document.getElementById("branch");
+
+    // Clear existing options
+    secondDropdown.innerHTML = '';
+
+    // Add new options based on the selected value
+    if (selectedValue === 'Thrissur') {
+        addOption(secondDropdown, 'Chalakudy', 'option1a');
+        addOption(secondDropdown, 'Akathiyoor', 'option1b');
+        addOption(secondDropdown, 'Avinissery', 'option1a');
+        addOption(secondDropdown, 'Thalappaly', 'option1b');
+    } else if (selectedValue === 'Ernamkulam') {
+        addOption(secondDropdown, 'Piravom', 'option2a');
+        addOption(secondDropdown, 'Aluva', 'option2b');
+        addOption(secondDropdown, 'Vypin', 'option2a');
+        addOption(secondDropdown, 'Kochi', 'option2b');
+    } else if (selectedValue === 'Palakkad') {
+        addOption(secondDropdown, 'Alathur', 'option3a');
+        addOption(secondDropdown, 'Erimayur', 'option3b');
+        addOption(secondDropdown, 'Kottayi', 'option2a');
+        addOption(secondDropdown, 'Mathur', 'option2b');
+    } else if (selectedValue === 'Kottayam') {
+        addOption(secondDropdown, 'Chaganassery', 'option2a');
+        addOption(secondDropdown, 'Chethipuza', 'option2b');
+        addOption(secondDropdown, 'Karukachal', 'option2a');
+        addOption(secondDropdown, 'Kurichy', 'option2b');
+    } else if (selectedValue === 'Trivandrum') {
+        addOption(secondDropdown, 'Attipara', 'option3a');
+        addOption(secondDropdown, 'Cheruvakkal', 'option3b');
+        addOption(secondDropdown, 'Kadakampally', 'option2a');
+        addOption(secondDropdown, 'Kalliyoor', 'option2b');
+    }
+}
+
+function addOption(selectElement, text, value) {
+    var option = document.createElement("option");
+    option.text = text;
+    option.value = value;
+    selectElement.add(option);
+}
+
+// Initial update of the second dropdown
+updateSecondDropdown();
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!--def get_branches(request):-->
+<!--district = request.GET.get(‘district’)-->
+<!--branches = -->
+<!--if district == ‘thrissur’:-->
+<!--branches = [‘Kunnamkulam’, ‘Kodugallur’, ‘Wadakkanchery’]-->
+<!--elif district == ‘ernamkulam’:-->
+<!--branches = [‘Angamaly’, ‘Perumbavoor’, ‘Vytilla’]-->
+<!--elif district == ‘palakkad’:-->
+<!--branches = [‘Chittur’, ‘Ottappalam’, ‘Kalpathy’]-->
+<!--elif district == ‘kottayam’:-->
+<!--branches = [‘Pala’, ‘Changanassery’, ‘Ponkunnam’]-->
+<!--elif district == ‘trivandrum’:-->
+<!--branches = [‘Atingal’, ‘Varkkala’, ‘Neyyattinkara’]-->
